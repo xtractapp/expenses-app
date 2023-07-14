@@ -3,6 +3,9 @@ import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
+import Constants from '../constants/General';
+import UserService from '../services/userService';
+
 import {
   Button,
   TextInput,
@@ -19,12 +22,9 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/v2/users/login', {
-        email,
-        password,
-      });
+      const response = await UserService.login(email, password);
       const { token } = response.data;
-      await SecureStore.setItemAsync('apiToken', token);
+      await SecureStore.setItemAsync(Constants.apiToken, token);
       setIsAuthenticated(true);
     } catch (error) {
       console.error(error);

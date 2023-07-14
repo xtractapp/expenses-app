@@ -13,6 +13,8 @@ export {
   ErrorBoundary,
 } from 'expo-router';
 
+import Constants from '../constants/General';
+
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(tabs)',
@@ -33,7 +35,7 @@ export default function RootLayout() {
   }, [error]);
 
   const checkAuthentication = async () => {
-    const token = await SecureStore.getItemAsync('apiToken');
+    const token = await SecureStore.getItemAsync(Constants.apiToken);
     setIsAuthenticated(!!token);
   };
 
@@ -59,7 +61,7 @@ function RootLayoutNav() {
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
         </Stack>
       </ThemeProvider>
     </>
