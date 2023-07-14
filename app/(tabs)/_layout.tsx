@@ -1,6 +1,7 @@
 import { Pressable, useColorScheme } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { Link, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import Constants from '../../constants/General';
@@ -18,6 +19,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { t } = useTranslation();
 
   return (
     <Tabs
@@ -28,7 +30,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="dollar" color={color} />,
+          tabBarLabel: t('tabs.expenses'),
           headerRight: () => (
             <Pressable
               onPress={() => SecureStore.deleteItemAsync(Constants.apiToken)}
@@ -49,7 +52,8 @@ export default function TabLayout() {
         name="two"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
+          tabBarLabel: t('tabs.summary'),
         }}
       />
     </Tabs>
