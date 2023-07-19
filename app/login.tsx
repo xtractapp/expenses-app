@@ -12,6 +12,22 @@ import {
   View,
 } from '../components/Themed';
 
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 4,
+    height: 60,
+    margin: 12,
+    padding: 10,
+    width: '80%',
+  },
+});
+
 type LoginProps = {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
 };
@@ -54,21 +70,5 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 4,
-    height: 60,
-    margin: 12,
-    padding: 10,
-    width: '80%',
-  },
-});
 
 export default Login;

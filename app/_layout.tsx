@@ -22,7 +22,7 @@ export const unstable_settings = {
   initialRouteName: '(tabs)',
 };
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [loaded, error] = useFonts({
@@ -55,7 +55,7 @@ export default function RootLayout() {
   );
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
@@ -69,3 +69,5 @@ function RootLayoutNav() {
     </>
   );
 }
+
+export default RootLayout;
