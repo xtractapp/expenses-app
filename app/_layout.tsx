@@ -23,6 +23,8 @@ export const unstable_settings = {
 };
 
 const RootLayout = () => {
+  const colorScheme = useColorScheme();
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [loaded, error] = useFonts({
@@ -46,26 +48,23 @@ const RootLayout = () => {
   }, []);
 
   return (
-    <I18nextProvider i18n={i18n}>
-      {/* Keep the splash screen open until the assets have loaded. In the future, we should just support async font loading with a native version of font-display. */}
-      {!loaded && <SplashScreen />}
-      {loaded && !isAuthenticated && <Login setIsAuthenticated={setIsAuthenticated} />}
-      {loaded && isAuthenticated && <RootLayoutNav />}
-    </I18nextProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <I18nextProvider i18n={i18n}>
+        {/* Keep the splash screen open until the assets have loaded. In the future, we should just support async font loading with a native version of font-display. */}
+        {!loaded && <SplashScreen />}
+        {loaded && !isAuthenticated && <Login setIsAuthenticated={setIsAuthenticated} />}
+        {loaded && isAuthenticated && <RootLayoutNav />}
+      </I18nextProvider>
+    </ThemeProvider>
   );
 }
 
 const RootLayoutNav = () => {
-  const colorScheme = useColorScheme();
-
   return (
     <>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
-        </Stack>
-      </ThemeProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
     </>
   );
 }

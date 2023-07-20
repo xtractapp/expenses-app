@@ -6,16 +6,22 @@ import {
 } from 'react-native';
 
 import { Expense } from '../types/types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useRouter } from 'expo-router';
 
 type Props = {
   expense: Expense;
 };
 
 const ExpenseListItem = ({ expense }: Props) => {
+  const router = useRouter();
+
   return (
-    <View>
+    <TouchableOpacity
+      onPress={() => router.push(`expense/${expense.id}`)}
+    >
       <Text>ExpenseListItem</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

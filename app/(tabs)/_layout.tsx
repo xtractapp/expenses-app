@@ -7,9 +7,6 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Constants from '../../constants/General';
 import Colors from '../../constants/Colors';
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
@@ -49,7 +46,7 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="summary"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
