@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   useColorScheme,
   StyleSheet,
@@ -11,7 +12,7 @@ import Colors from '../constants/Colors';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
+  colorName: keyof typeof Colors.light & keyof typeof Colors.dark,
 ) {
   const theme = useColorScheme() ?? 'light';
   const colorFromProps = props[theme];
@@ -23,10 +24,10 @@ export function useThemeColor(
   }
 }
 
-type ThemeProps = {
+interface ThemeProps {
   lightColor?: string;
   darkColor?: string;
-};
+}
 
 export type ButtonProps = ThemeProps & DefaultPressable['props'];
 export type TextProps = ThemeProps & DefaultText['props'];
@@ -57,10 +58,16 @@ const buttonStyles = StyleSheet.create({
 export function Button(props: ButtonProps) {
   const { style, lightColor, darkColor, title, ...otherProps } = props;
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'main');
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    'main',
+  );
 
   return (
-    <TouchableOpacity style={[{ backgroundColor, color }, buttonStyles.container, style]} {...otherProps}>
+    <TouchableOpacity
+      style={[{ backgroundColor, color }, buttonStyles.container, style]}
+      {...otherProps}
+    >
       <Text style={buttonStyles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -82,7 +89,10 @@ export function TextInput(props: TextInputProps) {
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    'background',
+  );
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }

@@ -1,5 +1,5 @@
-import { useGlobalSearchParams } from 'expo-router';
 import React from 'react';
+import { useGlobalSearchParams } from 'expo-router';
 import { View, Text } from 'react-native';
 
 const Expense = () => {

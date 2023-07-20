@@ -1,16 +1,11 @@
-import axios from 'axios';
+import React, { useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import Constants from '../constants/General';
 import UserService from '../services/userService';
 
-import {
-  Button,
-  TextInput,
-  View,
-} from '../components/Themed';
+import { Button, TextInput, View } from '../components/Themed';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +23,9 @@ const styles = StyleSheet.create({
   },
 });
 
-type LoginProps = {
+interface LoginProps {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
-};
+}
 
 const Login = ({ setIsAuthenticated }: LoginProps) => {
   const [email, setEmail] = useState('');
@@ -62,11 +57,7 @@ const Login = ({ setIsAuthenticated }: LoginProps) => {
         style={styles.input}
         value={password}
       />
-      <Button
-        onPress={handleLogin}
-        style={{ width: '80%' }}
-        title="Log in"
-      />
+      <Button onPress={handleLogin} style={{ width: '80%' }} title="Log in" />
     </View>
   );
 };

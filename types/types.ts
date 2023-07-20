@@ -1,8 +1,6 @@
-export type GenericObject = {
-  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-};
+export type GenericObject = Record<string, any>;
 
-export type Assignment = {
+export interface Assignment {
   id: number;
   user_id: number;
   email: string;
@@ -12,16 +10,16 @@ export type Assignment = {
   df_2: string;
   df_3: string;
   df_4: string;
-};
+}
 
-export type Comment = {
+export interface Comment {
   created_at: string;
   id: number;
   text: string;
   user: { email: string };
-};
+}
 
-export type Expense = {
+export interface Expense {
   id: number;
   total_amount: string;
   currency: string;
@@ -37,4 +35,4 @@ export type Expense = {
   assignments: Assignment[];
   comments: Comment[];
   imputations: GenericObject;
-};
+}

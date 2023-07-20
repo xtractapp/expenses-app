@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Text, View } from '../../components/Themed';
-import { Expense } from '../../types/types';
+import { View } from '../../components/Themed';
+import { type Expense } from '../../types/types';
 
 import ExpenseService from '../../services/expenseService';
 import ExpenseListItem from '../../components/ExpenseListItem';
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const loadExpenses = () => {
     setLoading(true);
@@ -28,7 +28,9 @@ const Expenses = () => {
       .then((res) => {
         setExpenses(res.data.data);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -38,13 +40,10 @@ const Expenses = () => {
   return (
     <View style={styles.container}>
       {expenses.map((expense) => (
-        <ExpenseListItem
-          expense={expense}
-          key={expense.id}
-        />
+        <ExpenseListItem expense={expense} key={expense.id} />
       ))}
     </View>
   );
-}
+};
 
 export default Expenses;

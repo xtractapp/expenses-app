@@ -1,3 +1,4 @@
+import React from 'react';
 import { Pressable, useColorScheme } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { Tabs } from 'expo-router';
@@ -22,7 +23,8 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -31,7 +33,9 @@ const TabLayout = () => {
           tabBarLabel: t('tabs.expenses'),
           headerRight: () => (
             <Pressable
-              onPress={() => SecureStore.deleteItemAsync(Constants.apiToken)}
+              onPress={() => {
+                SecureStore.deleteItemAsync(Constants.apiToken);
+              }}
             >
               {({ pressed }) => (
                 <FontAwesome
@@ -49,12 +53,14 @@ const TabLayout = () => {
         name="summary"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bar-chart" color={color} />
+          ),
           tabBarLabel: t('tabs.summary'),
         }}
       />
     </Tabs>
   );
-}
+};
 
 export default TabLayout;
