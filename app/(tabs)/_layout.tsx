@@ -12,7 +12,7 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={25} style={{ marginBottom: -3 }} {...props} />;
 }
 
 const TabLayout = () => {
@@ -28,9 +28,10 @@ const TabLayout = () => {
       <Tabs.Screen
         name="index"
         options={{
-          title: '',
+          tabBarActiveTintColor: Colors.light.main,
           tabBarIcon: ({ color }) => <TabBarIcon name="dollar" color={color} />,
           tabBarLabel: t('tabs.expenses'),
+          title: '',
           headerRight: () => (
             <Pressable
               onPress={() => {
@@ -52,11 +53,10 @@ const TabLayout = () => {
       <Tabs.Screen
         name="summary"
         options={{
-          title: '',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="bar-chart" color={color} />
-          ),
+          tabBarActiveTintColor: Colors.light.main,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bar-chart" color={color} />,
           tabBarLabel: t('tabs.summary'),
+          title: '',
         }}
       />
     </Tabs>

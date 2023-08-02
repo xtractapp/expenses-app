@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, SafeAreaView, StyleSheet } from 'react-native';
 
 import { View } from '../../components/Themed';
 import { type Expense } from '../../types/types';
 
+import Colors from '../../constants/Colors';
 import ExpenseService from '../../services/expenseService';
 import ExpenseListItem from '../../components/ExpenseListItem';
 
@@ -11,32 +12,69 @@ const Expenses = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [, setLoading] = useState(false);
 
-  const loadExpenses = (page: number) => {
-    setLoading(true);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const filterUniqueExpenses = (value: Expense, index: number, self: Expense[]) => {
+    return (
+      self.findIndex((obj) => obj.id === value.id) === index
+    );
+  };
+
+  const loadExpenses = (page: number, refresh: boolean) => {
+    refresh ? setRefreshing(true) : setLoading(true);
+
     ExpenseService.list({
       page,
       per_page: 10,
     })
       .then((res) => {
-        setExpenses([...expenses, ...res.data.data]);
+        refresh ? (
+          setExpenses(res.data.data)
+        ) : (
+          setExpenses(
+            [...expenses, ...res.data.data].filter(filterUniqueExpenses)
+          )
+        );
+        setCurrentPage(page);
         setTotalPages(res.data.total_pages);
       })
       .finally(() => {
-        setLoading(false);
+        refresh ? setRefreshing(false) : setLoading(false);
       });
+  };
+
+  const refreshData = () => {
+    loadExpenses(1, true);
   };
 
   const fetchMore = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+      loadExpenses(currentPage + 1, false);
     }
   };
 
   useEffect(() => {
-    loadExpenses(currentPage);
-  }, [currentPage]);
+    loadExpenses(1, false);
+  }, []);
+
+  const renderFooter = () => (
+    <View>
+      {
+        loading && (
+          <ActivityIndicator
+            color={Colors.light.main}
+            size="large"
+            style={{
+              height: 100,
+              padding: 4,
+            }}
+          />
+        )
+      }
+    </View>
+  );
 
   return (
     <SafeAreaView>
@@ -44,8 +82,16 @@ const Expenses = () => {
         contentContainerStyle={{}}
         data={expenses}
         keyExtractor={(item) => item.id.toString()}
+        ListFooterComponent={renderFooter}
         onEndReachedThreshold={0.2}
         onEndReached={fetchMore}
+        refreshControl={
+          <RefreshControl
+            tintColor={Colors.light.main}
+            onRefresh={refreshData}
+            refreshing={refreshing}
+          />
+        }
         renderItem={({ item }) => <ExpenseListItem expense={item} />}
       />
     </SafeAreaView>
