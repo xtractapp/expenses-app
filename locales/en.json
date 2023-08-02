@@ -1,4 +1,15 @@
 {
+  "expenses": {
+    "status": {
+      "pending": "Pending",
+      "submitted": "Submitted",
+      "reimbursed": "Reimbursed",
+      "unassigned": "Unassigned",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "approval_pending": "Approval pending"
+    }
+  },
   "tabs": {
     "expenses": "Expenses",
     "summary": "Summary"

@@ -1,4 +1,15 @@
 {
+  "expenses": {
+    "status": {
+      "pending": "A presentar",
+      "submitted": "Presentado",
+      "reimbursed": "Pagado",
+      "unassigned": "Sin asignar",
+      "approved": "Aprobado",
+      "rejected": "Rechazado",
+      "approval_pending": "Pendiente"
+    }
+  },
   "tabs": {
     "expenses": "Gastos",
     "summary": "Resumen"

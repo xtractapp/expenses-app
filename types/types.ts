@@ -19,18 +19,22 @@ export interface Comment {
   user: { email: string };
 }
 
+export type ExpenseCategory = 'accomodation' | 'meals' | 'fuel' | 'transport' | 'flight' | 'other';
+type ExpenseStatus = 'pending' | 'submitted' | 'reimbursed';
+type ApprovalStatus = 'unassigned' | 'approved' | 'rejected' | 'approval_pending';
+
 export interface Expense {
   id: number;
   total_amount: string;
   currency: string;
   date: string;
-  category: string;
+  category: ExpenseCategory;
   description: string;
-  status: string;
+  status: ExpenseStatus;
   user_email: string;
   provider_business_name: string;
   document_url: string;
-  approval_status: string;
+  approval_status: ApprovalStatus;
   created_at: string;
   assignments: Assignment[];
   comments: Comment[];
