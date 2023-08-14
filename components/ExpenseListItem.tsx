@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 
 import { Text } from 'react-native';
 
-import { type Expense } from '../types/types';
+import { Expense } from '../types';
 import { View } from './Themed';
 import Colors from '../constants/Colors';
 import Avatar from './Avatar';

@@ -1,6 +1,6 @@
 export type GenericObject = Record<string, any>;
 
-export interface Assignment {
+export type Assignment = {
   id: number;
   user_id: number;
   email: string;
@@ -12,7 +12,7 @@ export interface Assignment {
   df_4: string;
 }
 
-export interface Comment {
+export type Comment = {
   created_at: string;
   id: number;
   text: string;
@@ -23,7 +23,7 @@ export type ExpenseCategory = 'accomodation' | 'meals' | 'fuel' | 'transport' | 
 type ExpenseStatus = 'pending' | 'submitted' | 'reimbursed';
 type ApprovalStatus = 'unassigned' | 'approved' | 'rejected' | 'approval_pending';
 
-export interface Expense {
+export type Expense = {
   id: number;
   total_amount: string;
   currency: string;

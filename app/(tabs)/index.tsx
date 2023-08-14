@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, SafeAreaView, StyleSheet } from 'react-native';
 
 import { View } from '../../components/Themed';
-import { type Expense } from '../../types/types';
+import { Expense } from '../../types';
 
 import Colors from '../../constants/Colors';
 import ExpenseService from '../../services/expenseService';

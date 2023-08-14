@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
-import { ExpenseCategory } from '../types/types';
+import { ExpenseCategory } from '../types';
 
 const styles = StyleSheet.create({
   container: {
