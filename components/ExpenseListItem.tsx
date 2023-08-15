@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 import { Text } from 'react-native';
 
-import { Expense } from '../types';
+import {
+  Expense,
+  PossibleStatus,
+} from '../types';
 import { View } from './Themed';
 import Colors from '../constants/Colors';
 import Avatar from './Avatar';
-import { FontAwesome } from '@expo/vector-icons';
-import { useTranslation } from 'react-i18next';
+import { statusIcon } from './Icons';
 
 const styles = StyleSheet.create({
   leftContainer: {
@@ -52,27 +55,6 @@ interface Props {
   expense: Expense;
 }
 
-type PossibleStatus = 'pending' | 'submitted' | 'reimbursed' | 'unassigned' | 'approved' | 'rejected' | 'approval_pending';
-
-const statusIcon = (status: PossibleStatus) => {
-  switch (status) {
-    case 'pending':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'submitted':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'reimbursed':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'unassigned':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'approved':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'rejected':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-    case 'approval_pending':
-      return <FontAwesome name="plane" style={{ marginRight: 5 }}/>
-  };
-};
-
 const ExpenseListItem = ({ expense }: Props) => {
   const router = useRouter();
   const { t } = useTranslation();
@@ -90,11 +72,17 @@ const ExpenseListItem = ({ expense }: Props) => {
 
       <View style={styles.middleContainer}>
         <Text style={styles.bold}>{expense.provider_business_name}</Text>
-        <Text style={styles.bold}>{expense.category}</Text>
+        <Text style={styles.bold}>{t(`expenses.categories.${expense.category}`)}</Text>
         <View style={styles.dualTextContainer}>
           <Text style={{ marginRight: 5 }}>{expense.date}</Text>
-          {statusIcon(status)}
-          <Text>{t(`expenses.status.${status}`)}</Text>
+          {
+            statusIcon(
+              status,
+              { marginRight: 5 },
+              15,
+            )
+          }
+          <Text>{t(`expenses.statuses.${status}`)}</Text>
         </View>
       </View>
 

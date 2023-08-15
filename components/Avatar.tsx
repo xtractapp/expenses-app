@@ -1,8 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import {
+  StyleSheet,
+  View,
+} from 'react-native'
+
 import Colors from '../constants/Colors';
 import { ExpenseCategory } from '../types';
+import { categoryIcon } from './Icons';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,33 +28,19 @@ type Props = {
   name: ExpenseCategory;
 };
 
-const cateogryToAvatar = (name: ExpenseCategory): React.ComponentProps<typeof FontAwesome>['name'] => {
-  if (name === 'accomodation') {
-    return 'bed';
-  }
-  if (name === 'meals') {
-    return 'cutlery';
-  }
-  if (name === 'fuel') {
-    return 'tint';
-  }
-  if (name === 'transport') {
-    return 'train';
-  }
-  if (name === 'flight') {
-    return 'plane';
-  }
-  return 'credit-card';
-};
-
 const Avatar = (props: Props) => {
   return (
     <View style={styles.container}>
-      <FontAwesome
-        name={cateogryToAvatar(props.name)}
-        size={25}
-        style={styles.icon}
-      />
+      {
+        categoryIcon(
+          props.name,
+          {
+            color: Colors.light.background,
+            marginBottom: -3,
+          },
+          25,
+        )
+      }
     </View>
   );
 };
